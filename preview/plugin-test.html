@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>plugin test</title>
+<style>
+  html,body{height:100%;margin:0}
+  #root{position:relative;z-index:1;height:100%;display:flex;align-items:center;justify-content:center}
+  .fake{width:min(760px,80vw);padding:28px 32px;border-radius:18px;background:rgba(10,22,22,.62);
+    border:1px solid rgba(163,255,205,.2);color:#eef7f0;font:15px/1.9 "PingFang SC",sans-serif;
+    backdrop-filter:blur(18px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+  .fake b{color:#d6ff8f}
+  .fake small{color:#8ba096;letter-spacing:.12em}
+</style>
+</head>
+<body>
+<div id="root">
+  <div class="fake">
+    <small>PLUGIN BUNDLE TEST</small>
+    <p>如果这张页面出现了壁纸、右侧的「安和すばる」和左下角的播放器，就说明 <b>dsh-theme-subaru/lib/client.js</b> 可以被 DSH 的模块加载器执行。</p>
+    <p>图片、字体和 CSS 都已经被打包进这一个文件里。</p>
+  </div>
+</div>
+<script>
+  window.__ModuleLoader__ = { load: function (o) { window.__M = o; } };
+</script>
+<script src="../dsh-theme-subaru/lib/client.js"></script>
+<script>
+  try {
+    var m = window.__M.factory(function (id) { throw new Error('unexpected require: ' + id); });
+    m.apply({ effect: function (fn) { var d = fn(); return function () { d(); }; } });
+    document.title = 'plugin ok';
+  } catch (e) {
+    document.title = 'plugin failed: ' + e.message;
+    var p = document.createElement('pre');
+    p.style.cssText = 'position:fixed;left:20px;bottom:20px;color:#ff8fa7;z-index:99;white-space:pre-wrap';
+    p.textContent = String(e && e.stack || e);
+    document.body.appendChild(p);
+  }
+</script>
+</body>
+</html>
