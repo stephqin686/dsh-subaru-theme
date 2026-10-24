@@ -1,0 +1,18 @@
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc
+
+# local/rights-unclear artwork — keep these out of git
+assets/wall.jpg
+assets/avatar.jpg
+
+# generated preview + client bundle
+preview/wall.jpg
+preview/avatar.jpg
+preview/theme.css
+preview/boot.js
+dsh-theme-subaru/lib/client.js
+dsh-theme-subaru/lib/yuji-sub.woff
+
+preview/yuji-sub.woff
